@@ -18,13 +18,7 @@ namespace Util.CodeHelpers.Extensions
     {
         public static bool IsNullEmptyOrWhiteSpace(this string str)
         {
-            if (str == null)
-                return true;
-
-            if (string.IsNullOrWhiteSpace(str))
-                return true;
-            else
-                return false;
+            return string.IsNullOrWhiteSpace(str);
         }
 
         public static T Convert<T>(this string str)
