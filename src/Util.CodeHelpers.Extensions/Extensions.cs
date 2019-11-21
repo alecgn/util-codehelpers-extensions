@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Numerics;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -15,7 +16,7 @@ namespace Util.CodeHelpers.Extensions
 
     public static class StringExtensions
     {
-        public static bool IsNullOrEmpty(this string str)
+        public static bool IsNullEmptyOrWhiteSpace(this string str)
         {
             if (str == null)
                 return true;
@@ -40,7 +41,7 @@ namespace Util.CodeHelpers.Extensions
 
         public static bool IsBase64(this string str)
         {
-            if (str.IsNullOrEmpty())
+            if (str.IsNullEmptyOrWhiteSpace())
                 return false;
 
             var regexBase64 = new Regex(@"^[a-zA-Z0-9\+\/]*={0,3}$");
@@ -50,7 +51,7 @@ namespace Util.CodeHelpers.Extensions
 
         public static string EncodeToBase64(this string str)
         {
-            if (str.IsNullOrEmpty())
+            if (str.IsNullEmptyOrWhiteSpace())
                 return null;
 
             return System.Convert.ToBase64String(Encoding.UTF8.GetBytes(str));
@@ -58,14 +59,14 @@ namespace Util.CodeHelpers.Extensions
 
         public static string DecodeFromBase64(this string str64)
         {
-            if (str64.IsNullOrEmpty())
+            if (str64.IsNullEmptyOrWhiteSpace())
                 return null;
 
             return Encoding.UTF8.GetString(System.Convert.FromBase64String(str64));
         }
 
         /// <summary>
-        /// Use this method for local file paths
+        /// Use this method for local file paths checks.
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
@@ -75,7 +76,7 @@ namespace Util.CodeHelpers.Extensions
         }
 
         /// <summary>
-        /// Use this method instead "FileExists" for network/remote file paths
+        /// Use this method for network/remote file paths checks; also works on local file paths.
         /// </summary>
         /// <param name="networkFilePath"></param>
         /// <returns></returns>
@@ -85,7 +86,7 @@ namespace Util.CodeHelpers.Extensions
         }
 
         /// <summary>
-        /// Use this method for local directory paths
+        /// Use this method for local directory paths checks.
         /// </summary>
         /// <param name="directoryPath"></param>
         /// <returns></returns>
@@ -95,7 +96,7 @@ namespace Util.CodeHelpers.Extensions
         }
 
         /// <summary>
-        /// Use this method for network/remote directory paths
+        /// Use this method for network/remote directory paths checks; also works on local directory paths.
         /// </summary>
         /// <param name="networkDirectoryPath"></param>
         /// <returns></returns>
@@ -202,13 +203,47 @@ namespace Util.CodeHelpers.Extensions
 
             return fonte;
         }
+
+        public static byte[] FromHexString(this string hexString)
+        {
+            if (string.IsNullOrWhiteSpace(hexString))
+                return null;
+
+            if (hexString.Length % 2 != 0)
+                throw new ArgumentException("Incorret hexadecimal string.", nameof(hexString));
+
+            var byteArray = new byte[hexString.Length / 2];
+            var i = 0;
+
+            foreach (var hexVal in ChunkHexString(hexString))
+            {
+                byteArray[i] = System.Convert.ToByte(hexVal, 16);
+                i++;
+            }
+
+            return byteArray;
+        }
+
+        private static IEnumerable<string> ChunkHexString(string hexString)
+        {
+            for (int i = 0; i < hexString.Length; i += 2)
+                yield return hexString.Substring(i, 2);
+        }
     }
 
     public static class LongExtensions
     {
         public static string ToSizeUnitString(this long value, SizeUnits unit)
         {
-            return (value / Math.Pow(1024, (long)unit)).ToString("0.00");
+            return (value / Math.Pow(1024, (int)unit)).ToString("0.00");
+        }
+    }
+
+    public static class BigIntegerExtensions
+    {
+        public static string ToSizeUnitString(this BigInteger value, SizeUnits unit)
+        {
+            return (value / BigInteger.Pow(1024, (int)unit)).ToString("0.00");
         }
     }
 

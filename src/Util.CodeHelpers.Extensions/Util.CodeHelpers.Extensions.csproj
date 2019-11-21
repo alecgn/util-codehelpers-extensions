@@ -9,11 +9,12 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>util-codehelpers-extensions-icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/alecgn/util-codehelpers-extensions</PackageProjectUrl>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0</FileVersion>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0</FileVersion>
     <Description>Util.CodeHelpers.Extensions is a .NET multi-target class library (.NET Standard 2.0/2.1) that can be used in projects with any .NET implementation, like .NET Framework, .NET Core, Mono, Xamarin, etc., to provide common code validations and conversions, enhancing productivity and code legibility, and reducing development time.</Description>
     <RepositoryUrl>https://github.com/alecgn/util-codehelpers-extensions</RepositoryUrl>
     <PackageTags>extension extensions validation validations conversion conversions productivity c# c-sharp csharp</PackageTags>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
