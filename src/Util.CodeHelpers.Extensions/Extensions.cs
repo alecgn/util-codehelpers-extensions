@@ -327,10 +327,10 @@ namespace Util.CodeHelpers.Extensions
             }
         }
 
-        public static bool IsNullableType<T>(T t)
+        public static bool IsNullableType<T>(T _)
         {
-            var type = t.GetType();
-            //var type = typeof(T);
+            //var type = t.GetType();
+            var type = typeof(T);
 
             return (Nullable.GetUnderlyingType(type) != null);
         }
