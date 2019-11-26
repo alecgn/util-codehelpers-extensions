@@ -302,7 +302,7 @@ namespace Util.CodeHelpers.Extensions
             return anyIsNull;
         }
 
-        public static bool ObjIn(this object obj, params object[] objArray)
+        public static bool IsInArray(this object obj, params object[] objArray)
         {
             return objArray.Contains(obj);
         }
