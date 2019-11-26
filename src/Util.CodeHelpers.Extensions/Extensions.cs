@@ -144,7 +144,7 @@ namespace Util.CodeHelpers.Extensions
 
         public static string HandleXss(this string str)
         {
-            return WebUtility.HtmlEncode(str);
+            return str.HTMLEncode();
         }
 
         public static string UrlEncode(this string str)
