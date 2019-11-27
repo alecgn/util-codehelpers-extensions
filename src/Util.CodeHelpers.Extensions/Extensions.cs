@@ -327,13 +327,10 @@ namespace Util.CodeHelpers.Extensions
             }
         }
 
-        public static bool IsNullableType<T>(T _)
-        {
-            //var type = t.GetType();
-            var type = typeof(T);
-
-            return (Nullable.GetUnderlyingType(type) != null);
-        }
+        public static bool IsNullable<T>(this T _)
+	    {
+    	    return default(T) == null;
+	    }
     }
 
     public static class GenericListExtensions
