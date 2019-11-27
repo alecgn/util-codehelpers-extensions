@@ -328,9 +328,9 @@ namespace Util.CodeHelpers.Extensions
         }
 
         public static bool IsNullable<T>(this T _)
-	    {
+    	{
     	    return default(T) == null;
-	    }
+    	}
     }
 
     public static class GenericListExtensions
