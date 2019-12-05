@@ -71,7 +71,7 @@ namespace Util.CodeHelpers.Extensions
         }
 
         /// <summary>
-        /// Use this method for local and network/remote directory paths checks.
+        /// Use this method for local and network/remote directory path check.
         /// </summary>
         /// <param name="directoryPath"></param>
         /// <returns></returns>
@@ -461,7 +461,7 @@ namespace Util.CodeHelpers.Extensions
     {
         public static T GetValue<T>(this DataRow row, string columnName)
         {
-            return row.Table.Columns.Contains(columnName) ? row[columnName].Converter<T>() : default;
+            return row.Table.Columns.Contains(columnName) ? row[columnName].Convert<T>() : default;
         }
     }
 }
