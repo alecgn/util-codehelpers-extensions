@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -60,43 +61,23 @@ namespace Util.CodeHelpers.Extensions
         }
 
         /// <summary>
-        /// Use this method for local file paths checks.
+        /// Use this method for local and network/remote file path check.
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
         public static bool FileExists(this string filePath)
         {
-            return File.Exists(filePath);
+            return new FileInfo(filePath).Exists;
         }
 
         /// <summary>
-        /// Use this method for network/remote file paths checks; also works on local file paths.
-        /// </summary>
-        /// <param name="networkFilePath"></param>
-        /// <returns></returns>
-        public static bool NetworkFileExists(this string networkFilePath)
-        {
-            return new FileInfo(networkFilePath).Exists;
-        }
-
-        /// <summary>
-        /// Use this method for local directory paths checks.
+        /// Use this method for local and network/remote directory paths checks.
         /// </summary>
         /// <param name="directoryPath"></param>
         /// <returns></returns>
         public static bool DirectoryExists(this string directoryPath)
         {
-            return Directory.Exists(directoryPath);
-        }
-
-        /// <summary>
-        /// Use this method for network/remote directory paths checks; also works on local directory paths.
-        /// </summary>
-        /// <param name="networkDirectoryPath"></param>
-        /// <returns></returns>
-        public static bool NetworkDirectoryExists(this string networkDirectoryPath)
-        {
-            return new DirectoryInfo(networkDirectoryPath).Exists;
+            return new DirectoryInfo(directoryPath).Exists;
         }
 
         public static PathType GetPathType(this string path)
@@ -473,6 +454,14 @@ namespace Util.CodeHelpers.Extensions
                 result = (mainDictionary.Except(secondaryDictionary).Count() == 0);
 
             return result;
+        }
+    }
+    
+    public static class DataRowExtensions
+    {
+        public static T GetValue<T>(this DataRow row, string columnName)
+        {
+            return row.Table.Columns.Contains(columnName) ? row[columnName].Converter<T>() : default;
         }
     }
 }
