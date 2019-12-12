@@ -212,6 +212,15 @@ namespace Util.CodeHelpers.Extensions
         {
             return (value / Math.Pow(1024, (int)unit)).ToString("0.00");
         }
+        
+        public static DateTime ToDateTime(this long unixTime, DateTimeKind dateTimeKind = DateTimeKind.Local)
+        {
+            var dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(unixTime);
+            var dateTime = dateTimeOffset.DateTime;
+            dateTime = (dateTimeKind.Equals(DateTimeKind.Local) ? dateTime.ToLocalTime() : dateTime);
+
+            return dateTime;
+        }
     }
 
     public static class BigIntegerExtensions
@@ -443,15 +452,6 @@ namespace Util.CodeHelpers.Extensions
             DateTimeOffset dateTimeOffset = dateTime;
 
             return dateTimeOffset.ToUnixTimeSeconds();
-        }
-
-        public static DateTime ToDateTime(this long unixTime, DateTimeKind dateTimeKind = DateTimeKind.Local)
-        {
-            var dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(unixTime);
-            var dateTime = dateTimeOffset.DateTime;
-            dateTime = (dateTimeKind.Equals(DateTimeKind.Local) ? dateTime.ToLocalTime() : dateTime);
-
-            return dateTime;
         }
     }
 
