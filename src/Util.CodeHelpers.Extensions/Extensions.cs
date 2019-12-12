@@ -437,6 +437,22 @@ namespace Util.CodeHelpers.Extensions
         {
             return TimeZoneInfo.ConvertTime(datetime, TimeZoneInfo.FindSystemTimeZoneById(timeZoneId));
         }
+        
+        public static long ToUnixTime(this DateTime dateTime)
+        {
+            DateTimeOffset dateTimeOffset = dateTime;
+
+            return dateTimeOffset.ToUnixTimeSeconds();
+        }
+
+        public static DateTime ToDateTime(this long unixTime, DateTimeKind dateTimeKind = DateTimeKind.Local)
+        {
+            var dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(unixTime);
+            var dateTime = dateTimeOffset.DateTime;
+            dateTime = (dateTimeKind.Equals(DateTimeKind.Local) ? dateTime.ToLocalTime() : dateTime);
+
+            return dateTime;
+        }
     }
 
     public static class DictionaryExtensions
