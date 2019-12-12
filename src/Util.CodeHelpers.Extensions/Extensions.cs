@@ -213,9 +213,18 @@ namespace Util.CodeHelpers.Extensions
             return (value / Math.Pow(1024, (int)unit)).ToString("0.00");
         }
         
-        public static DateTime ToDateTime(this long unixTime, DateTimeKind dateTimeKind = DateTimeKind.Local)
+        public static DateTime ToDateTimeFromUnixTimeMilliseconds(this long unixTimeMilliseconds, DateTimeKind dateTimeKind = DateTimeKind.Local)
         {
-            var dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(unixTime);
+            var dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(unixTimeMilliseconds);
+            var dateTime = dateTimeOffset.DateTime;
+            dateTime = (dateTimeKind.Equals(DateTimeKind.Local) ? dateTime.ToLocalTime() : dateTime);
+
+            return dateTime;
+        }
+
+        public static DateTime ToDateTimeFromUnixTimeSeconds(this long unixTimeSeconds, DateTimeKind dateTimeKind = DateTimeKind.Local)
+        {
+            var dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(unixTimeSeconds);
             var dateTime = dateTimeOffset.DateTime;
             dateTime = (dateTimeKind.Equals(DateTimeKind.Local) ? dateTime.ToLocalTime() : dateTime);
 
@@ -447,11 +456,18 @@ namespace Util.CodeHelpers.Extensions
             return TimeZoneInfo.ConvertTime(datetime, TimeZoneInfo.FindSystemTimeZoneById(timeZoneId));
         }
         
-        public static long ToUnixTime(this DateTime dateTime)
+        public static long ToUnixTimeMilliseconds(this DateTime dateTime)
         {
             DateTimeOffset dateTimeOffset = dateTime;
 
             return dateTimeOffset.ToUnixTimeMilliseconds();
+        }
+
+        public static long ToUnixTimeSeconds(this DateTime dateTime)
+        {
+            DateTimeOffset dateTimeOffset = dateTime;
+
+            return dateTimeOffset.ToUnixTimeSeconds();
         }
     }
 
