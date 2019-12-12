@@ -215,7 +215,7 @@ namespace Util.CodeHelpers.Extensions
         
         public static DateTime ToDateTime(this long unixTime, DateTimeKind dateTimeKind = DateTimeKind.Local)
         {
-            var dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(unixTime);
+            var dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(unixTime);
             var dateTime = dateTimeOffset.DateTime;
             dateTime = (dateTimeKind.Equals(DateTimeKind.Local) ? dateTime.ToLocalTime() : dateTime);
 
@@ -451,7 +451,7 @@ namespace Util.CodeHelpers.Extensions
         {
             DateTimeOffset dateTimeOffset = dateTime;
 
-            return dateTimeOffset.ToUnixTimeSeconds();
+            return dateTimeOffset.ToUnixTimeMilliseconds();
         }
     }
 
