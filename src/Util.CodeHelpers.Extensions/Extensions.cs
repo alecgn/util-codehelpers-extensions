@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -80,12 +80,12 @@ namespace Util.CodeHelpers.Extensions
             return new DirectoryInfo(directoryPath).Exists;
         }
 
-        public static PathType GetPathType(this string path)
+        public static PathType GetWindowsPathType(this string path)
         {
             return (Path.HasExtension(path) ? PathType.File : PathType.Directory);
         }
 
-        public static bool IsInArray(this string str, params string[] strArray)
+        public static bool IsInStringArray(this string str, params string[] strArray)
         {
             return strArray.Contains(str);
         }
@@ -163,7 +163,7 @@ namespace Util.CodeHelpers.Extensions
             return null;
         }
 
-        public static Color FromColorString(this string colorString)
+        public static Color ToColor(this string colorString)
         {
             TypeConverter converter = TypeDescriptor.GetConverter(typeof(Color));
             Color color = (Color)converter.ConvertFromString(colorString);
@@ -171,7 +171,7 @@ namespace Util.CodeHelpers.Extensions
             return color;
         }
 
-        public static Font FromFontString(this string fontString)
+        public static Font ToFont(this string fontString)
         {
             TypeConverter converter = TypeDescriptor.GetConverter(typeof(Font));
             Font fonte = (Font)converter.ConvertFromString(fontString);
@@ -179,7 +179,7 @@ namespace Util.CodeHelpers.Extensions
             return fonte;
         }
 
-        public static byte[] FromHexString(this string hexString)
+        public static byte[] ToByteArrayFromHex(this string hexString)
         {
             if (string.IsNullOrWhiteSpace(hexString))
                 return null;
@@ -304,6 +304,20 @@ namespace Util.CodeHelpers.Extensions
         public static bool IsInArray(this object obj, params object[] objArray)
         {
             return objArray.Contains(obj);
+        }
+
+        public static void WhenNull(this object obj, Action action)
+        {
+            if (obj.IsNull())
+                action();
+        }
+
+        public static T WhenNull<T>(this object obj, Func<T> func)
+        {
+            if (obj.IsNull())
+                return func();
+            else
+                return default;
         }
     }
 
@@ -491,9 +505,26 @@ namespace Util.CodeHelpers.Extensions
     
     public static class DataRowExtensions
     {
-        public static T GetValue<T>(this DataRow row, string columnName)
+        public static T GetValueOrDefault<T>(this DataRow row, string columnName)
         {
             return row.Table.Columns.Contains(columnName) ? row[columnName].Convert<T>() : default;
+        }
+    }
+
+    public static class BooleanExtensions
+    {
+        public static void WhenTrue(this bool condition, Action action)
+        {
+            if (condition)
+                action();
+        }
+
+        public static T WhenTrue<T>(this bool condition, Func<T> func)
+        {
+            if (condition)
+                return func();
+            else
+                return default;
         }
     }
 }
