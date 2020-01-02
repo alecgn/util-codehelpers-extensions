@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
@@ -9,16 +9,22 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>util-codehelpers-extensions-icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/alecgn/util-codehelpers-extensions</PackageProjectUrl>
-    <AssemblyVersion>1.3.0</AssemblyVersion>
-    <FileVersion>1.3.0</FileVersion>
+    <AssemblyVersion>1.4.0</AssemblyVersion>
+    <FileVersion>1.4.0</FileVersion>
     <Description>Util.CodeHelpers.Extensions is a .NET multi-target class library (.NET Standard 2.0/2.1) that can be used in projects with any .NET implementation, like .NET Framework, .NET Core, Mono, Xamarin, etc., to provide common code validations like null-checks, type conversions and more, enhancing productivity and code legibility, and reducing development time.</Description>
     <RepositoryUrl>https://github.com/alecgn/util-codehelpers-extensions</RepositoryUrl>
     <PackageTags>extension extensions validation validations conversion conversions productivity c# c-sharp csharp</PackageTags>
-    <Version>1.3.0</Version>
-    <PackageReleaseNotes>- Added "ToDateTimeFromUnixTimeSeconds" method to LongExtensions for converting a long Unix time in seconds to DateTime. 
-- Added "ToDateTimeFromUnixTimeMilliseconds" method to LongExtensions for converting a long Unix time in milliseconds to DateTime. 
-- Added "ToUnixTimeSeconds" method to DateTimeExtensions for converting a DateTime to a long Unix time in seconds. 
-- Added "ToUnixTimeMilliseconds" method to DateTimeExtensions for converting a DateTime to a long Unix time in milliseconds.</PackageReleaseNotes>
+    <Version>1.4.0</Version>
+    <PackageReleaseNotes>- Renamed StringExtensions method "GetPathType" to "GetWindowsPathType". 
+- Renamed StringExtensions method "IsInArray" to "IsInStringArray". 
+- Renamed StringExtensions method "FromColorString" to "ToColor". 
+- Renamed StringExtensions method "FromFontString" to "ToFont". 
+- Renamed StringExtensions method "FromHexString" to "ToByteArrayFromHex". 
+- Added StringExtensions method "WhenNull -&gt; Action". 
+- Added StringExtensions method "WhenNull -&gt; Func&lt;T&gt;". 
+- Added "BooleanExtensions" class. 
+- Added BooleanExtensions method "WhenTrue -&gt; Action". 
+- Added BooleanExtensions method "WhenTrue -&gt; Func&lt;T&gt;".</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
