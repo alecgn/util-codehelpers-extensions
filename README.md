@@ -1,4 +1,4 @@
-# util-codehelpers-extensions
+# Util.CodeHelpers.Extensions
 [![Build status (util-codehelpers-extensions)](https://github.com/alecgn/util-codehelpers-extensions/workflows/build/badge.svg)](#)
 [![Nuget version (Util.CodeHelpers.Extensions)](https://img.shields.io/nuget/v/Util.CodeHelpers.Extensions)](https://nuget.org/packages/Util.CodeHelpers.Extensions) 
 [![Nuget downloads (Util.CodeHelpers.Extensions)](https://img.shields.io/nuget/dt/Util.CodeHelpers.Extensions)](https://nuget.org/packages/Util.CodeHelpers.Extensions)
