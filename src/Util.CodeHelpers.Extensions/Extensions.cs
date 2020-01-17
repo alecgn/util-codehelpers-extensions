@@ -470,6 +470,24 @@ namespace Util.CodeHelpers.Extensions
             return TimeZoneInfo.ConvertTime(datetime, TimeZoneInfo.FindSystemTimeZoneById(timeZoneId));
         }
         
+        public static DateTime ToDateTimeBrazil(this DateTime datetime)
+        {
+            string timeZoneId;
+
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.Unix:
+                case PlatformID.MacOSX:
+                    timeZoneId = "America/Sao_Paulo";
+                    break;
+                default:
+                    timeZoneId = "E. South America Standard Time";
+                    break;
+            }
+
+            return TimeZoneInfo.ConvertTime(datetime, TimeZoneInfo.FindSystemTimeZoneById(timeZoneId));
+        }
+        
         public static long ToUnixTimeMilliseconds(this DateTime dateTime)
         {
             DateTimeOffset dateTimeOffset = dateTime;
