@@ -244,7 +244,7 @@ namespace Util.CodeHelpers.Extensions
     {
         public static T Convert<T>(this object obj)
         {
-            if (obj == null || obj == DBNull.Value)
+            if (obj.IsNull() || obj == DBNull.Value)
                 return default;
             else
             {
@@ -348,49 +348,57 @@ namespace Util.CodeHelpers.Extensions
 
     public static class GenericListExtensions
     {
+        public static void RandomizeList<T>(this List<T> inputList)
+        {
+            if (inputList != null && inputList.Count > 1)
+            {
+                Random rand = new Random();
+                int n = inputList.Count;
+
+                for (int i = 0; i < n; i++)
+                {
+                    int r = i + rand.Next(n - i);
+                    T t = inputList[r];
+                    inputList[r] = inputList[i];
+                    inputList[i] = t;
+                }
+            }
+        }
+
         /// <summary>
-        /// Randomize a generic list, changing its items position. Author: Alessandro Cagliostro
+        /// Randomize a generic list, changing its items position.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="inputList"></param>
         /// <param name="exceptItem">The item wich its position will not be affected by the Randomize function. Pass null or invalid data for commom operation.</param>
         public static void RandomizeList<T>(this List<T> inputList, T exceptItem)
         {
-            Random random;
-
-            try
+            if (inputList != null && inputList.Count > 1)
             {
-                if (inputList != null && inputList.Count > 1)
+                var random = new Random();
+                int exceptItemIndex = inputList.IndexOf(exceptItem);
+
+                for (int i = inputList.Count - 1; i >= 0; i--)
                 {
-                    random = new Random();
-                    int exceptItemIndex = inputList.IndexOf(exceptItem);
+                    T tmp = inputList[i];
 
-                    for (int i = inputList.Count - 1; i >= 0; i--)
+                    if (tmp.Equals(exceptItem))
+                        continue;
+
+                    int randomIndex = 0;
+                    bool exitLoop = false;
+
+                    while (!exitLoop)
                     {
-                        T tmp = inputList[i];
+                        randomIndex = random.Next(i + 1);
 
-                        if (tmp.Equals(exceptItem))
-                            continue;
-
-                        int randomIndex = 0;
-                        bool exitLoop = false;
-
-                        while (!exitLoop)
-                        {
-                            randomIndex = random.Next(i + 1);
-
-                            if (!randomIndex.Equals(exceptItemIndex))
-                                exitLoop = true;
-                        }
-
-                        inputList[i] = inputList[randomIndex];
-                        inputList[randomIndex] = tmp;
+                        if (!randomIndex.Equals(exceptItemIndex))
+                            exitLoop = true;
                     }
+
+                    inputList[i] = inputList[randomIndex];
+                    inputList[randomIndex] = tmp;
                 }
-            }
-            finally
-            {
-                random = null;
             }
         }
 
@@ -422,6 +430,43 @@ namespace Util.CodeHelpers.Extensions
                     T t = inputArray[r];
                     inputArray[r] = inputArray[i];
                     inputArray[i] = t;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Randomize an array, changing its items position.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="inputArray"></param>
+        /// <param name="exceptItem">The item wich its position will not be affected by the Randomize function. Pass null or invalid data for commom operation.</param>
+        public static void RandomizeArray<T>(this T[] inputArray, T exceptItem)
+        {
+            if (inputArray != null && inputArray.Length > 1)
+            {
+                var random = new Random();
+                int exceptItemIndex = Array.IndexOf(inputArray, exceptItem);
+
+                for (int i = inputArray.Length - 1; i >= 0; i--)
+                {
+                    T tmp = inputArray[i];
+
+                    if (tmp.Equals(exceptItem))
+                        continue;
+
+                    int randomIndex = 0;
+                    bool exitLoop = false;
+
+                    while (!exitLoop)
+                    {
+                        randomIndex = random.Next(i + 1);
+
+                        if (!randomIndex.Equals(exceptItemIndex))
+                            exitLoop = true;
+                    }
+
+                    inputArray[i] = inputArray[randomIndex];
+                    inputArray[randomIndex] = tmp;
                 }
             }
         }
