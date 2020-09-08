@@ -590,4 +590,23 @@ namespace Util.CodeHelpers.Extensions
                 return default;
         }
     }
+
+    public static class EnumExtensions
+    {
+        public static T ConvertToEnum<T>(this string str)
+            where T : struct, IComparable, IFormattable, IConvertible
+        {
+            if (!typeof(T).IsEnum)
+                throw new ArgumentException(nameof(T));
+
+            if (str.IsNullEmptyOrWhiteSpace())
+                return default;
+
+            T enumValue = default;
+
+            Enum.TryParse(str, true, out enumValue);
+
+            return enumValue;
+        }
+    }
 }
