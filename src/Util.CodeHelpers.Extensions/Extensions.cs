@@ -573,6 +573,17 @@ namespace Util.CodeHelpers.Extensions
             return row.Table.Columns.Contains(columnName) ? row[columnName].Convert<T>() : default;
         }
     }
+    
+    public static class IDbCommandExtensions
+    {
+        public static void AddParameter(this IDbCommand command, string paramName, object paramValue)
+        {
+            var parameter = command.CreateParameter();
+            parameter.ParameterName = paramName;
+            parameter.Value = paramValue;
+            command.Parameters.Add(parameter);
+        }
+    }
 
     public static class BooleanExtensions
     {
