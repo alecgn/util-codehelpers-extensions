@@ -9,6 +9,7 @@ using System.Net;
 using System.Numerics;
 using System.Text;
 using System.Text.RegularExpressions;
+using Util.CodeHelpers.Extensions.Resources;
 
 namespace Util.CodeHelpers.Extensions
 {
@@ -39,7 +40,7 @@ namespace Util.CodeHelpers.Extensions
             if (str.IsNullEmptyOrWhiteSpace())
                 return false;
 
-            var regexBase64 = new Regex(@"^[a-zA-Z0-9\+\/]*={0,3}$");
+            var regexBase64 = new Regex(RegexStrings.Base64);
 
             return ((str.Length % 4) == 0 && regexBase64.IsMatch(str));
         }
@@ -203,6 +204,21 @@ namespace Util.CodeHelpers.Extensions
         {
             for (int i = 0; i < hexString.Length; i += 2)
                 yield return hexString.Substring(i, 2);
+        }
+
+        public static bool IsEmailAddress(this string str, bool useRegex = false)
+        {
+            if (str.IsNullEmptyOrWhiteSpace())
+                return false;
+
+            if (useRegex)
+                return new Regex(RegexStrings.EmailAddress).IsMatch(str);
+            else
+            {
+                int index = str.IndexOf('@');
+
+                return (index > 0 && index != str.Length - 1 && index == str.LastIndexOf('@'));
+            }
         }
     }
 

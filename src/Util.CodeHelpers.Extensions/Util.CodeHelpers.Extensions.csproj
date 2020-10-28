@@ -15,7 +15,9 @@
     <RepositoryUrl>https://github.com/alecgn/util-codehelpers-extensions</RepositoryUrl>
     <PackageTags>extension extensions validation validations conversion conversions productivity c# c-sharp csharp</PackageTags>
     <Version>1.7.0</Version>
-    <PackageReleaseNotes>Added EnumExtensions and ConvertToEnum method.</PackageReleaseNotes>
+    <PackageReleaseNotes>- Added IDbCommandExtensions class with AddParameter method
+- Added IsEmailAddress method to StringExtensions class
+- Added resource file for Regex Strings</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +27,22 @@
   <ItemGroup>
     <Folder Include="Icon\" />
     <None Include="Icon\util-codehelpers-extensions-icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\RegexStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RegexStrings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\RegexStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RegexStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Util.CodeHelpers.Extensions.Resources</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
